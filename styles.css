@@ -1,0 +1,200 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  color: #333;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Container principal */
+.container {
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
+header {
+  padding: 30px 15px;
+  color: white;
+  background-color: #ff6b81;
+  font-size: 2rem;
+  position: relative;
+  z-index: 1;
+  word-wrap: break-word;
+}
+
+/* Timer */
+#timer {
+  font-size: 1.5rem;
+  margin: 20px 10px;
+  position: relative;
+  z-index: 1;
+  word-wrap: break-word;
+}
+
+/* Galeria */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.gallery img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  cursor: pointer;
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Rodapé */
+footer {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: #ff6b81;
+  color: white;
+  position: relative;
+  z-index: 1;
+  word-wrap: break-word;
+}
+
+/* Botão de música */
+#playButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+/* Corações flutuantes */
+.hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ===========================
+   RESPONSIVIDADE 
+=========================== */
+
+/* Tablets e celulares maiores */
+@media (max-width: 900px) {
+  header {
+    font-size: 1.6rem;
+    padding: 25px 10px;
+  }
+
+  #timer {
+    font-size: 1.2rem;
+    margin: 15px 5px;
+  }
+
+  .gallery img {
+    width: 45vw;
+    height: auto;
+  }
+
+  footer {
+    font-size: 1rem;
+    padding: 12px 10px;
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  header {
+    font-size: 1.3rem;
+    padding: 20px 8px;
+  }
+
+  #timer {
+    font-size: 1rem;
+    margin: 10px 5px;
+  }
+
+  .gallery img {
+    width: 90vw;
+    height: auto;
+  }
+
+  footer {
+    font-size: 0.9rem;
+    padding: 10px 8px;
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Surpresa Crescendo</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }
+
+    .grow-image {
+      width: 0;
+      height: auto;
+      opacity: 0;
+      animation: growIn 2s ease-out forwards;
+      max-width: 90vw;
+      max-height: 80vh;
+    }
+
+    @keyframes growIn {
+      0% {
+        transform: scale(0.2);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        width: 1000px;
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="img/kkk.jpeg" alt="Surpresa!" class="grow-image" />
+
+</body>
+</html>

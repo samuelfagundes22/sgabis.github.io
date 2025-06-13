@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Você está preparada?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .button {
+      background-color: #ff6b81;
+      color: white;
+      padding: 20px 40px;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 10;
+    }
+     .button1 {
+      background-color: white;
+      color: #ff6b81;
+      padding: 20px 40px;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 10;
+    }
+
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff6b81;
+      font-size: 20px;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      opacity: 0.8;
+      will-change: transform, opacity;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="button1" onclick="window.location.href='index.html'">
+    SIMM
+  </button>
+
+  
+  <button class="button" onclick="window.location.href='foto.html'">
+    NÃOO
+  </button>
+
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+
+      // Tamanho aleatório
+      const size = Math.random() * 20 + 20;
+      heart.style.fontSize = size + "px";
+
+      // Posição horizontal aleatória
+      heart.style.left = Math.random() * 100 + "vw";
+
+      // Começa no fundo da tela
+      heart.style.top = "100vh";
+
+      // Tempo da animação (3 a 6 segundos)
+      const duration = Math.random() * 3 + 3;
+      heart.style.animationDuration = duration + "s";
+
+      document.getElementById("heartsContainer").appendChild(heart);
+
+      // Remove o coração depois que animação termina
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    // Cria corações a cada 200ms
+    setInterval(createHeart, 200);
+  </script>
+
+</body>
+</html>

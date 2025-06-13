@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Dia dos Namorados</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: #333;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 30px;
+      color: white;
+      background-color: #ff6b81;
+      font-size: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    #timer {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #ff6b81;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    #playButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    💖 Feliz Dia dos Namorados! 💖
+  </header>
+
+  <div id="timer">
+    Estamos juntos há: <br><strong id="timeTogether"></strong>
+  </div>
+
+  <section class="gallery">
+    <img src="img/foto1.jpg" alt="Foto do casal 1">
+    <img src="img/foto2.jpg" alt="Foto do casal 2">
+    <img src="img/foto3.JPG" alt="Foto do casal 3">
+    <img src="img/foto4.jpg" alt="Foto do casal 4">
+    <img src="img/foto5.jpg" alt="Foto do casal 5">
+    <img src="img/foto6.jpg" alt="Foto do casal 6">
+    <img src="img/foto7.jpg" alt="Foto do casal 7">
+    <img src="img/foto8.jpg" alt="Foto do casal 8">
+    <img src="img/foto9.jpg" alt="Foto do casal 9">
+    <img src="img/foto10.jpg" alt="Foto do casal 10">
+    <img src="img/foto11.jpg" alt="Foto do casal 11">
+    <img src="img/foto12.jpg" alt="Foto do casal 12">
+  </section>
+
+  <div class="modal" id="modal">
+    <span class="close-btn" onclick="closeModal()">✖</span>
+    <img id="modalImg" src="" alt="Foto ampliada">
+  </div>
+
+  <footer>
+    EU TE AMO MINHA CAGONINHA 💕
+  </footer>
+
+  <!-- Apenas uma vez! -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <audio id="bgMusic" loop autoplay muted>
+    <source src="musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <button id="playButton">🔊 Tocar música</button>
+
+  <script>
+    const startDate = new Date("2023-08-01T20:00:00");
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const months = Math.floor(days / 30.44);
+      const years = Math.floor(months / 12);
+
+      const remainingMonths = months % 12;
+      const remainingDays = Math.floor(days % 30.44);
+      const remainingHours = hours % 24;
+      const remainingMinutes = minutes % 60;
+      const remainingSeconds = seconds % 60;
+
+      document.getElementById("timeTogether").innerHTML = 
+        `${years} anos, ${remainingMonths} meses, ${remainingDays} dias,<br>
+         ${remainingHours} horas, ${remainingMinutes} minutos e ${remainingSeconds} segundos 💘`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+
+    document.querySelectorAll(".gallery img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+      });
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    modal.addEventListener("click", (e) => {
+      if (e.target !== modalImg) {
+        closeModal();
+      }
+    });
+
+    const audio = document.getElementById("bgMusic");
+    const playButton = document.getElementById("playButton");
+
+    playButton.addEventListener("click", () => {
+      audio.muted = false;
+      audio.play();
+      playButton.style.display = "none";
+    });
+
+    // CORAÇÕES FLUTUANTES
+     
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+
+      // Tamanho aleatório
+      const size = Math.random() * 20 + 20;
+      heart.style.fontSize = size + "px";
+
+      // Posição horizontal aleatória
+      heart.style.left = Math.random() * 100 + "vw";
+
+      // Começa no fundo da tela
+      heart.style.top = "100vh";
+
+      // Tempo da animação (3 a 6 segundos)
+      const duration = Math.random() * 3 + 3;
+      heart.style.animationDuration = duration + "s";
+
+      document.getElementById("heartsContainer").appendChild(heart);
+
+      // Remove o coração depois que animação termina
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    // Cria corações a cada 200ms
+    setInterval(createHeart, 200);
+  
+  </script>
+</body>
+</html>
